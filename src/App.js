@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Form from "./components/Form"; 
 
-function App() {
+const API_KEY =  "ohYTG5FhOerPWRBpSo8eQ";
+const APP_SECRET  = "QbJ5aMfH7ndA2OJNsDN08OXLzp23CfwPvhpplXOJmY"; 
+
+class App extends Component {
+
+
+getBook= async (e)=> {
+  const  bookName = e.target.elements.bookName.value;
+  e.preventDefault(); 
+  const api_call = await fetch (`https://www.goodreads.com/search.xml?key=&{API_KEY}&secret=&{APP_SECRET}&q=Ender%27s+Game`);
+  const data= await api_call.json();
+  console.log(data); 
+}
+
+  render(){
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <h1 className="App-title">Stay Home And Read a Book</h1>
       </header>
+      <Form getBook={this.getBook}/>
     </div>
   );
 }
-
+}
 export default App;
